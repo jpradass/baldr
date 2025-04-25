@@ -1,6 +1,8 @@
 package log
 
 import (
+	"fmt"
+
 	"go.uber.org/zap"
 
 	"github.com/jpradass/baldr/utils"
@@ -15,6 +17,7 @@ type Log struct {
 type Logger interface {
 	Debug(string)
 	Info(string)
+	Infof(string, ...any)
 	Warn(string)
 	Error(string, ...any)
 	Fatal(string)
@@ -41,6 +44,10 @@ func (log *Log) Debug(msg string) {
 
 func (log *Log) Info(msg string) {
 	log.l.Info(msg)
+}
+
+func (log *Log) Infof(msg string, args ...any) {
+	log.l.Info(fmt.Sprintf(msg, args...))
 }
 
 func (log *Log) Warn(msg string) {
